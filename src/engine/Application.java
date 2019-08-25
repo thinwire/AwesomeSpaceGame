@@ -99,7 +99,8 @@ public abstract class Application implements ScreenPainter {
 	
 	/**
 	 * Run the main game loop.
-	 * Most of the core code is adapted from here:
+	 * 
+	 * The code is adapted from here:
 	 * http://www.java-gaming.org/index.php?topic=24220.0
 	 */
 	public void run() {
@@ -110,26 +111,25 @@ public abstract class Application implements ScreenPainter {
 		// keep looping until the game ends
 		while (shouldRun) {
 			
-			// work out how long its been since the last update, this
-			// will be used to calculate how far the entities should
-			// move this loop
+			// Work out how long its been since the last update
 			long now = System.nanoTime();
 			long frameTime = now - lastLoopTime;
 			lastLoopTime = now;
 			
 			// Delta time is the time in seconds it took between the start
-			// of last frame and the start of this frame
+			// of last frame and the start of this frame; this is used to
+			// scale game object movement speed.
 			double delta = frameTime / 1000000000.0;
 
 			// Update FPS counter
 			lastFpsTime += frameTime;
 			fps++;
 
-			// Dump FPS to console each second - comment this bit out
-			// to get more stable speed in the game; printing to console
-			// is slow as balls.
+			// Update FPS counter
 			if (lastFpsTime >= 1000000000l) {
 				if(shouldPrintFPS) {
+					// Print FPS to console every time a new reading is obtained
+					// This can make the program stutter. Use setPrintFPS(true) to enable.
 					System.out.println("FPS: " + fps);
 				}
 				frameRate = fps;
