@@ -7,8 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.awt.image.ImageObserver;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Game screen. Handles the game window and drawing graphics onto it.
@@ -19,7 +21,8 @@ public class Screen {
 	private JFrame frame;
 	private int width;
 	private int height;
-
+	private int frameWidth;
+	private int frameHeight;
 	private int yoffset;
 
 	private ScreenPainter painter;
@@ -36,12 +39,15 @@ public class Screen {
 		// will run as long as the frame is visible
 		this.width = width;
 		this.height = height;
+
 		frame.setResizable(false);
 		frame.getContentPane().setPreferredSize(new Dimension(width, height));
 		frame.pack();
 		frame.setVisible(true);
 
-		yoffset = frame.getHeight() - height + 1; // This should be wrong, but is correct. WTF, Java, why the +1 ?
+		frameWidth = frame.getWidth() + 1;
+		frameHeight = frame.getHeight() + 1;
+		yoffset = frameHeight - height;
 
 		System.out.println("Screen width " + width + " height " + height + " requested");
 		System.out.println("Window width " + frame.getWidth() + " height " + frame.getHeight());
@@ -58,6 +64,10 @@ public class Screen {
 	}
 
 	public Frame getFrame() {
+		return frame;
+	}
+	
+	public ImageObserver getObserver() {
 		return frame;
 	}
 
@@ -78,21 +88,21 @@ public class Screen {
 		// Get a fresh graphics object from the buffer strategy
 		Graphics g = bufstrat.getDrawGraphics();
 
-		// Translate context origin to compensate for window border
-		g.translate(0, yoffset);
-
 		// Set color for clearing the screen
 		g.setColor(Color.BLACK);
 
 		// Clear existing stuff on screen
-		g.fillRect(0, 0, width, height);
-
+		g.fillRect(0, 0, frameWidth, frameHeight);
+		
+		// Translate the graphics context
+		g.translate(0, yoffset);
+		
 		// Let the client draw graphics to screen
-		painter.paint((Graphics2D) g);
+		painter.paint((Graphics2D)g);
 
-		// Apparently we need to dispose of the graphics
-		// object so that the garbage collector doesn't
-		// get overwhelmed...
+		// We're done painting. Apparently these need 
+		// to be disposed of to help the memory manager 
+		// work better.
 		g.dispose();
 
 		// Flip buffers to present a fresh new frame

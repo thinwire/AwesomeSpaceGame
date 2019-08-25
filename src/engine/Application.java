@@ -228,7 +228,7 @@ public abstract class Application implements ScreenPainter {
 	@Override
 	public void paint(Graphics2D g) {
 
-		ImageObserver obs = screen.getFrame();
+		ImageObserver obs = screen.getObserver();
 
 		for (int i = 0, l = drawables.size(); i < l; ++i) {
 			drawables.get(i).draw(g, obs);
