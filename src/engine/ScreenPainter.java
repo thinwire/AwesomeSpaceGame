@@ -8,5 +8,5 @@ import java.awt.Graphics2D;
 public interface ScreenPainter {
 
 	void paint(Graphics2D g);
-	
+
 }

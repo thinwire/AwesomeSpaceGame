@@ -17,7 +17,7 @@ public abstract class Application implements ScreenPainter {
 	private int frameRate = 0;
 
 	private ArrayList<Drawable> drawables = new ArrayList<>();
-	
+
 	/**
 	 * Constructs an application with a basic screen width and a screen height
 	 * 
@@ -32,9 +32,9 @@ public abstract class Application implements ScreenPainter {
 		// respond to the user closing the game window. We want to
 		// close the game down _gracefully_ by terminating the game
 		// core loop.
-		
+
 		screen.getFrame().addWindowListener(new WindowListener() {
-			
+
 			// We only care about the windowClosing callback which gets
 			// triggered when the user presses the 'close' button on the
 			// window.
@@ -46,38 +46,44 @@ public abstract class Application implements ScreenPainter {
 
 			// The rest of this junk just needs to be there because we're implementing
 			// an interface instead of extending a class...
-			
+
 			@Override
-			public void windowOpened(WindowEvent e) {}
-			
+			public void windowOpened(WindowEvent e) {
+			}
+
 			@Override
-			public void windowIconified(WindowEvent e) {}
-			
+			public void windowIconified(WindowEvent e) {
+			}
+
 			@Override
-			public void windowDeiconified(WindowEvent e) {}
-			
+			public void windowDeiconified(WindowEvent e) {
+			}
+
 			@Override
-			public void windowDeactivated(WindowEvent e) {}	
-			
+			public void windowDeactivated(WindowEvent e) {
+			}
+
 			@Override
-			public void windowClosed(WindowEvent e) {}
-			
+			public void windowClosed(WindowEvent e) {
+			}
+
 			@Override
-			public void windowActivated(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {
+			}
 		});
-		
+
 	}
 
 	/**
-	 * Set the target frame rate. Should be between 10 and 240.
-	 * This might never be achieved. Also there is no vsync.
+	 * Set the target frame rate. Should be between 10 and 240. This might never be
+	 * achieved. Also there is no vsync.
 	 * 
 	 * @param fps target frame rate
 	 */
 	public void setTargetFrameRate(int fps) {
 		targetFrameRate = fps < 10 ? 10 : fps > 240 ? 240 : fps;
 	}
-	
+
 	/**
 	 * Get the current actual FPS count. Value is updated roughly once per second.
 	 * 
@@ -86,17 +92,18 @@ public abstract class Application implements ScreenPainter {
 	public int getFrameRate() {
 		return frameRate;
 	}
-	
+
 	/**
-	 * Call this with the parameter 'true' to make the engine print
-	 * the current FPS to console. Be aware that this can cause stuttering.
+	 * Call this with the parameter 'true' to make the engine print the current FPS
+	 * to console. Be aware that this can cause stuttering.
 	 * 
-	 * @param enable true to print FPS once per second, false to disable. Default: false.
+	 * @param enable true to print FPS once per second, false to disable. Default:
+	 *               false.
 	 */
 	public void setPrintFPS(boolean enable) {
 		shouldPrintFPS = enable;
 	}
-	
+
 	/**
 	 * Run the main game loop.
 	 * 
@@ -110,12 +117,12 @@ public abstract class Application implements ScreenPainter {
 
 		// keep looping until the game ends
 		while (shouldRun) {
-			
+
 			// Work out how long its been since the last update
 			long now = System.nanoTime();
 			long frameTime = now - lastLoopTime;
 			lastLoopTime = now;
-			
+
 			// Delta time is the time in seconds it took between the start
 			// of last frame and the start of this frame; this is used to
 			// scale game object movement speed.
@@ -127,7 +134,7 @@ public abstract class Application implements ScreenPainter {
 
 			// Update FPS counter
 			if (lastFpsTime >= 1000000000l) {
-				if(shouldPrintFPS) {
+				if (shouldPrintFPS) {
 					// Print FPS to console every time a new reading is obtained
 					// This can make the program stutter. Use setPrintFPS(true) to enable.
 					System.out.println("FPS: " + fps);
@@ -136,14 +143,14 @@ public abstract class Application implements ScreenPainter {
 				lastFpsTime = 0;
 				fps = 0;
 			}
-			
+
 			// Update input
 			input.update();
 
 			// Update game logic, passing in delta timing value
 			// to allow for speed compensation
 			update(delta);
-			
+
 			// Cause screen to redraw. This will call back to our
 			// paint(g) routine.
 			screen.update();
@@ -153,23 +160,24 @@ public abstract class Application implements ScreenPainter {
 			try {
 				// Figure out how long our frame should ideally be
 				long targetDuration = 1000000000l / targetFrameRate;
-				
+
 				// Figure out how much time we spent doing updates and painting
 				long elapsed = System.nanoTime() - now;
-				
+
 				// We need to sleep for roughly the amount of time that we didn't spend
 				// Thread.sleep expects a duration in milliseconds, and we're operating in
 				// nanoseconds, so we need to divide the time by that amount...
 				long sleep_tm = (targetDuration - elapsed) / 1000000l;
-				
+
 				// Actually sleep. Add 1 msec to get a somewhat saner sleep time...
 				Thread.sleep(sleep_tm);
 			} catch (Exception ignore) {
-				// We ignore all exceptions, because if this fails, we've got unrecoverable problems
+				// We ignore all exceptions, because if this fails, we've got unrecoverable
+				// problems
 			}
 		}
 
-		// Dispose of the screen, we don't need it anymore... 
+		// Dispose of the screen, we don't need it anymore...
 		screen.getFrame().dispose();
 	}
 
@@ -219,13 +227,13 @@ public abstract class Application implements ScreenPainter {
 	 */
 	@Override
 	public void paint(Graphics2D g) {
-		
+
 		ImageObserver obs = screen.getFrame();
 
-		for(int i = 0, l = drawables.size(); i < l; ++i) {
+		for (int i = 0, l = drawables.size(); i < l; ++i) {
 			drawables.get(i).draw(g, obs);
-		}	
-		
+		}
+
 	}
 
 }
