@@ -9,6 +9,7 @@ public class Sprite implements Drawable {
 	private BufferedImage source;
 	private double size_w, size_h;
 	private double pos_x, pos_y;
+	private boolean visible;
 
 	public Sprite(Image src) {
 		source = src.getData();
@@ -16,6 +17,15 @@ public class Sprite implements Drawable {
 		size_h = src.getHeight();
 		pos_x = 0;
 		pos_y = 0;
+		visible = true;
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public setVisible(boolean b) {
+		visible = b;	
 	}
 
 	public void setPosition(double x, double y) {
@@ -46,6 +56,8 @@ public class Sprite implements Drawable {
 
 	public void draw(Graphics2D g, ImageObserver obs) {
 
+		if(!visible) return;
+		
 		// Figure out screen coordinates for where to draw the sprite.
 		// We want to center the sprite on its position, so we need to
 		// subtract half the width and the height of the sprite from
