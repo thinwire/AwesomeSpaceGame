@@ -92,7 +92,8 @@ public class Screen {
 		g.setColor(Color.BLACK);
 
 		// Clear existing stuff on screen
-		g.fillRect(0, 0, frameWidth, frameHeight);
+		final int BORDER = 32;
+		g.fillRect(-BORDER, -BORDER, frameWidth + (BORDER << 1), frameHeight + (BORDER << 1));
 		
 		// Translate the graphics context
 		g.translate(0, yoffset);
