@@ -34,10 +34,19 @@ public class Text implements Drawable {
 	private double pos_x = 0, pos_y = 0;
 	private char[] data = null;
 	private int length = 0;
-
+	private boolean visible = true;
+		
 	public Text(Font font) {
 		this.font = font;
 		color = Color.WHITE;
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public void setVisible(boolean b) {
+		visible = b;
 	}
 
 	public void setPosition(double x, double y) {
@@ -79,6 +88,8 @@ public class Text implements Drawable {
 
 	@Override
 	public void draw(Graphics2D g, ImageObserver obs) {
+		if(!visible) return;
+		
 		if (data != null) {
 			g.setFont(font);
 			g.setColor(color);
