@@ -37,6 +37,22 @@ public class Sprite implements Drawable {
 		pos_x += dx;
 		pos_y += dy;
 	}
+	
+	public double getX0() {
+		return pos_x - (size_w * 0.5);
+	}
+	
+	public double getX1() {
+		return pos_x + (size_w * 0.5);
+	}
+	
+	public double getY0() {
+		return pos_y - (size_h * 0.5);
+	}
+	
+	public double getY1() {
+		return pos_y + (size_h * 0.5);
+	}
 
 	public double getX() {
 		return pos_x;
