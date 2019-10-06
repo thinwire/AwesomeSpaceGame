@@ -11,5 +11,5 @@ readme for information about how to set up the project.
 
 Code is licensed under the [WTFPL](http://www.wtfpl.net/about/).
 
-Graphics from OpenGameArt.com
+Graphics from OpenGameArt.org
 Font from dafont.com
