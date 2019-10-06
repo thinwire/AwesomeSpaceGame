@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
+import engine.audio.Sound;
 import engine.graphics.Drawable;
 import engine.graphics.Image;
 import engine.graphics.Sprite;
@@ -11,6 +12,9 @@ import engine.math.EMath;
 
 class Enemy extends Sprite {
 
+	Sound laserSound;
+	Sound explosionSound;
+	
 	private BulletSystem bullets;
 
 	boolean alive = false;
@@ -22,6 +26,9 @@ class Enemy extends Sprite {
 	public Enemy(Image src, BulletSystem myBullets) {
 		super(src);
 		bullets = myBullets;
+		
+		laserSound = new Sound("sfx/laser1.wav");
+		explosionSound = new Sound("sfx/boom1.wav");
 	}
 
 	public void reset() {
@@ -38,6 +45,9 @@ class Enemy extends Sprite {
 		if (timeUntilNextShot < 0) {
 			timeUntilNextShot = EMath.rand(0.95, 1.25);
 			bullets.shoot(getX(), getY());
+			
+			// Play laser sound
+			laserSound.play();
 		}
 
 		// Move enemy
@@ -72,7 +82,7 @@ public class EnemySystem implements Drawable {
 	private double spawnInterval = 3.5;
 
 	private int enemiesKilled = 0;
-
+	
 	public EnemySystem(String sprite, BulletSystem playerBullets, ExplosionSystem exp) {
 		image = new Image(sprite);
 
@@ -162,15 +172,18 @@ public class EnemySystem implements Drawable {
 
 			// Check if player bullets happened to hit an enemy
 			if (playerBullets.testHit(e.getX(), e.getY(), 32)) {
-
+				
 				// Create an explosion
 				explosions.spawn(e.getX(), e.getY(), 85, e.speed_x * 0.4, e.speed_y * 0.4);
 
 				// Kill enemy
 				e.alive = false;
 
+				// Play explosion sound
+				e.explosionSound.play();
+				
 				// Mark another kill
-				enemiesKilled++;
+				enemiesKilled++;				
 			}
 		}
 
@@ -180,6 +193,7 @@ public class EnemySystem implements Drawable {
 
 	@Override
 	public void draw(Graphics2D g, ImageObserver obs) {
+	    
 		enemyBullets.draw(g, obs);
 
 		for (int i = 0, l = enemies.size(); i < l; ++i) {

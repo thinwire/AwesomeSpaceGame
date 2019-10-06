@@ -1,5 +1,6 @@
 package spacegame.game;
 
+import engine.audio.Sound;
 import engine.core.Input;
 import engine.graphics.Image;
 import engine.graphics.Sprite;
@@ -11,9 +12,13 @@ public class PlayerShip extends Sprite {
 	private double speed_y = 0;
 
 	private BulletSystem bullets;
+	
+	private Sound laserSound;
 
 	public PlayerShip(BulletSystem b) {
 		super(new Image("gfx/ship.png"));
+		laserSound = new Sound("sfx/laser1.wav");
+		
 		bullets = b;
 		reset();
 	}
@@ -90,6 +95,8 @@ public class PlayerShip extends Sprite {
 		// Now that we've moved, see if we want to shoot or not
 		if (input.isPressed("FIRE")) {
 			bullets.shoot(x, y);
+			
+			laserSound.play();
 		}
 
 	}
