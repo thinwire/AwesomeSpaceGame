@@ -1,11 +1,11 @@
-package game;
+package spacegame.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import engine.Drawable;
+import engine.graphics.Drawable;
 
 class Explosion implements Drawable {
 

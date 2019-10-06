@@ -1,12 +1,12 @@
-package game;
+package spacegame.game;
 
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import engine.Drawable;
-import engine.Image;
-import engine.Sprite;
+import engine.graphics.Drawable;
+import engine.graphics.Image;
+import engine.graphics.Sprite;
 
 class Bullet extends Sprite {
 	boolean active = false;

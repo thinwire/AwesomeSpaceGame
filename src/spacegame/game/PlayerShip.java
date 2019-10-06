@@ -1,9 +1,9 @@
-package game;
+package spacegame.game;
 
-import engine.EMath;
-import engine.Image;
-import engine.Input;
-import engine.Sprite;
+import engine.core.Input;
+import engine.graphics.Image;
+import engine.graphics.Sprite;
+import engine.math.EMath;
 
 public class PlayerShip extends Sprite {
 
@@ -38,19 +38,19 @@ public class PlayerShip extends Sprite {
 		double dx = 0;
 		double dy = 0;
 
-		if (input.isDown(Input.LEFT)) {
+		if (input.isDown("LEFT")) {
 			dx -= ACCEL;
 		}
 
-		if (input.isDown(Input.RIGHT)) {
+		if (input.isDown("RIGHT")) {
 			dx += ACCEL;
 		}
 
-		if (input.isDown(Input.UP)) {
+		if (input.isDown("UP")) {
 			dy -= ACCEL;
 		}
 
-		if (input.isDown(Input.DOWN)) {
+		if (input.isDown("DOWN")) {
 			dy += ACCEL;
 		}
 
@@ -88,7 +88,7 @@ public class PlayerShip extends Sprite {
 		setPosition(x, y);
 
 		// Now that we've moved, see if we want to shoot or not
-		if (input.isPressed(Input.FIRE)) {
+		if (input.isPressed("FIRE")) {
 			bullets.shoot(x, y);
 		}
 

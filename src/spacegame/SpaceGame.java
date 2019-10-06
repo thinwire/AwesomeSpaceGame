@@ -1,14 +1,16 @@
+package spacegame;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
-import engine.Application;
-import engine.Image;
-import engine.Sprite;
-import engine.Text;
-import game.BulletSystem;
-import game.EnemySystem;
-import game.ExplosionSystem;
-import game.PlayerShip;
-import game.Starfield;
+import engine.core.Application;
+import engine.graphics.Image;
+import engine.graphics.Sprite;
+import engine.graphics.Text;
+import spacegame.game.BulletSystem;
+import spacegame.game.EnemySystem;
+import spacegame.game.ExplosionSystem;
+import spacegame.game.PlayerShip;
+import spacegame.game.Starfield;
 
 public class SpaceGame extends Application {
 
@@ -65,7 +67,16 @@ public class SpaceGame extends Application {
 		scoreDisplay.setPosition(25, 45);
 		scoreDisplay.setText("Score: 0");
 		addDrawable(scoreDisplay);
-
+		
+		// Set up keyboard controls
+		// You can modify these to whatever you want
+		input.clearBindings();
+        input.bind("LEFT",  KeyEvent.VK_LEFT);
+        input.bind("RIGHT", KeyEvent.VK_RIGHT);
+        input.bind("UP",    KeyEvent.VK_UP);
+        input.bind("DOWN",  KeyEvent.VK_DOWN);
+        input.bind("FIRE",  KeyEvent.VK_SPACE);
+        input.bind("EXIT",  KeyEvent.VK_ESCAPE);
 	}
 
 	@Override
@@ -93,6 +104,12 @@ public class SpaceGame extends Application {
 			scoreDisplay.setText("Score: " + score);
 		}
 
+		// See if we want to quit
+		if(input.isPressed("EXIT")) {
+		    System.out.println("Exit pressed");
+		    exit();
+		}
+		
 	}
 
 	//////////////////////////////////////////////////////////////////////////

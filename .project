@@ -3,6 +3,7 @@
 	<name>SpaceGame</name>
 	<comment></comment>
 	<projects>
+		<project>ToyEngine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

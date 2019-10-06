@@ -1,11 +1,11 @@
-package game;
+package spacegame.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 
-import engine.Drawable;
-import engine.EMath;
+import engine.graphics.Drawable;
+import engine.math.EMath;
 
 /**
  * Animated parallax scrolling starfield.

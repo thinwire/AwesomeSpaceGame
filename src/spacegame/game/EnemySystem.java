@@ -1,13 +1,13 @@
-package game;
+package spacegame.game;
 
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
-import engine.Drawable;
-import engine.EMath;
-import engine.Image;
-import engine.Sprite;
+import engine.graphics.Drawable;
+import engine.graphics.Image;
+import engine.graphics.Sprite;
+import engine.math.EMath;
 
 class Enemy extends Sprite {
 
