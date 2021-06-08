@@ -71,12 +71,13 @@ public class SpaceGame extends Application {
 		// Set up keyboard controls
 		// You can modify these to whatever you want
 		input.clearBindings();
-        input.bind("LEFT",  KeyEvent.VK_LEFT);
-        input.bind("RIGHT", KeyEvent.VK_RIGHT);
-        input.bind("UP",    KeyEvent.VK_UP);
-        input.bind("DOWN",  KeyEvent.VK_DOWN);
-        input.bind("FIRE",  KeyEvent.VK_SPACE);
-        input.bind("EXIT",  KeyEvent.VK_ESCAPE);
+
+		input.bind("LEFT",  KeyEvent.VK_LEFT);
+		input.bind("RIGHT", KeyEvent.VK_RIGHT);
+		input.bind("UP",    KeyEvent.VK_UP);
+		input.bind("DOWN",  KeyEvent.VK_DOWN);
+		input.bind("FIRE",  KeyEvent.VK_SPACE);
+		input.bind("EXIT",  KeyEvent.VK_ESCAPE);
 	}
 
 	@Override
@@ -124,7 +125,7 @@ public class SpaceGame extends Application {
 
 		System.out.println("Game shutdown");
 
-		// Force exit of the application just in case
+		// Force exit of the application
 		System.exit(0);
 	}
 
